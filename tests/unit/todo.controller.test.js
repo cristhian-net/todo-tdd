@@ -15,7 +15,6 @@ beforeEach(() => {
     TodoModel.create.mockClear();
 })
 
-
 describe('TodoController.createTodo', () => {
 
     beforeEach(() => {
@@ -27,20 +26,20 @@ describe('TodoController.createTodo', () => {
         expect(typeof TodoController.createTodo).toBe('function');
     });
 
-    it('should call create method on Todo model an return good response', () => {
-        TodoController.createTodo(req, res);
+    it('should call create method on Todo model an return good response', async () => {
+        await TodoController.createTodo(req, res);
         expect(TodoModel.create).toHaveBeenCalledTimes(1);
         expect(res.statusCode).toBe(201);
     });
     
-    it('should send required title', () => {
-        TodoController.createTodo(req, res);
+    it('should send required title', async () => {
+        await TodoController.createTodo(req, res);
         expect(TodoModel.create).toHaveBeenCalledWith(newTodo);
     })
 
-    it('should return json body in response', () => {
+    it('should return json body in response', async () => {
         TodoModel.create.mockReturnValue(newTodo);
-        TodoController.createTodo(req, res);
+        await TodoController.createTodo(req, res);
         expect(res._getJSONData()).toStrictEqual(newTodo);
     })
 })

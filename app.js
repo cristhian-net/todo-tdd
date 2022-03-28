@@ -1,7 +1,15 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+require('dotenv').config();
+const mongodb = require('./mongodb/mongodb.connect');
+
+mongodb.connect();
+
+const todosRouter = require('./routes/todos.routes');
 
 app.get('/', (req, res) => res.json('Hello World!'));
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.use(express.json());
+app.use('/api/todos', todosRouter);
+
+module.exports = app;
