@@ -14,4 +14,16 @@ describe(endpointUrl, () => {
         expect(response.body.title).toStrictEqual(newTodo.title);
         expect(response.body.done).toStrictEqual(newTodo.done);
     })
+
+    it('handle errors', async () => {
+        const response = await request(app)
+            .post(endpointUrl)
+            .send({})
+            .expect(500);
+
+        expect(response.body.message).toBeDefined();
+        expect(response.body).toStrictEqual({
+            message: 'Todo validation failed: title: Path `title` is required.'
+        });
+    })
 });
