@@ -26,4 +26,11 @@ describe(endpointUrl, () => {
             message: 'Todo validation failed: title: Path `title` is required.'
         });
     })
+
+    it('GET ' + endpointUrl, async () => {
+        const response = await request(app)
+            .get(endpointUrl)
+            .expect(200);
+        expect(Array.isArray(response.body)).toBe(true);
+    })
 });

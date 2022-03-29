@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest ./tests/unit --watch"
   },
   "keywords": [],
   "author": "",
