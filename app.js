@@ -17,3 +17,4 @@ app.use(errorMiddleware);
 app.get('/', (req, res) => res.json('Hello World!'));
 
 module.exports = app;
+module.exports.mongodb = mongodb;

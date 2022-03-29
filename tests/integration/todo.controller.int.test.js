@@ -1,10 +1,18 @@
+jest.mock('../../mongodb/mongodb.connect');
+
 const request = require('supertest');
 const app = require('../../app');
+const mongodb = require('../../app').mongodb;
 const newTodo = require('../mock-data/new-todo.json');
 
 const endpointUrl = '/api/todos';
 
 describe(endpointUrl, () => {
+
+    afterAll( async() => {
+        mongodb.closeDatabase();
+    });
+
     it('POST ' + endpointUrl, async () => {
         const response = await request(app)
             .post(endpointUrl)

@@ -14,4 +14,4 @@ async function connect() {
     }
 }
 
-module.exports = { connect };
+module.exports = { connect, closeDatabase: () => mongoose.disconnect() };

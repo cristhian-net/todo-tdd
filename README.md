@@ -2,16 +2,22 @@
 Basic REST API for ToDos
 
 ### Run express app locally
-Create a file called .env, and put database config in there (clone .env.example and replace)
+Create a file called .env, and put database config in there (clone .env.example and replace with real values)
+
+Run 
+
+`npm i`
+
+and then
 
 `npm start`
 
 ### Run tests
 
-Create .env.test.local file and put Mongo test database config before running integration tests, and then run
+Run integration and unit tests (it will use in memory mongodb database)
 
 `npm test`
 
-If you only want to run unit tests in watch mode (no need for database), run
+For watch mode, run (unit tests only)
 
 `npm run test:watch`
