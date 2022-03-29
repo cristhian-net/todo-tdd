@@ -53,4 +53,16 @@ describe(endpointUrl, () => {
         expect(response.body.message).toBeDefined();
     })
 
+    it('PUT ' + endpointUrl + '/:id', async () => {
+        const myTodo = await request(app)
+            .post(endpointUrl)
+            .send(newTodo)
+            .expect(201);
+        const response = await request(app)
+            .put(endpointUrl + '/' + myTodo.body._id)
+            .send({ done: true })
+            .expect(200);
+        expect(response.body.done).toStrictEqual(true);
+    })
+
 });
