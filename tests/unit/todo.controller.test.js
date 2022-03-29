@@ -7,6 +7,7 @@ const allTodos = require('../mock-data/all-todos.json');
 
 TodoModel.create = jest.fn();
 TodoModel.find = jest.fn();
+TodoModel.findById = jest.fn();
 
 let req, res, next;
 
@@ -14,8 +15,7 @@ beforeEach(() => {
     req = httpMocks.createRequest();
     res = httpMocks.createResponse();
     next = jest.fn();
-    TodoModel.create.mockClear();
-    TodoModel.find.mockClear();
+    jest.clearAllMocks()
 })
 
 describe('TodoController.createTodo', () => {
@@ -71,4 +71,20 @@ describe('TodoController.getTodos', () => {
         await TodoController.getTodos(req, res, next);
         expect(next).toBeCalledWith(errorMessage);
     });
+})
+
+describe('TodoController.getById', () => {
+    it('should return todo object', async () => {
+        const todo = allTodos[0];
+        TodoModel.findById.mockReturnValue(todo);
+        await TodoController.getById(req, res);
+        expect(res._getJSONData()).toStrictEqual(todo);
+    })
+
+    it('should return 404 if no todo is found', async() => {
+        TodoModel.findById.mockReturnValue(null);
+        await TodoController.getById(req, res, next);
+        expect(res.statusCode).toBe(404);
+        expect(res._isEndCalled()).toBe(true);
+    })
 })

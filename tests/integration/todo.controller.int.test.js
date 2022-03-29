@@ -33,4 +33,24 @@ describe(endpointUrl, () => {
             .expect(200);
         expect(Array.isArray(response.body)).toBe(true);
     })
+
+    it('GET ' + endpointUrl + '/:id', async () => {
+        const myTodo = await request(app)
+            .post(endpointUrl)
+            .send(newTodo)
+            .expect(201);
+
+        const response = await request(app)
+            .get(endpointUrl + '/' + myTodo.body._id)
+            .expect(200);
+        expect(response.body._id).toStrictEqual(myTodo.body._id);
+    })
+
+    it('should return 404', async () => {
+        const response = await request(app)
+            .get(endpointUrl + '/' + '624228deb2d5f911afb7a6e4')
+            .expect(404);
+        expect(response.body.message).toBeDefined();
+    })
+
 });
