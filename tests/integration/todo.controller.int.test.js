@@ -65,4 +65,22 @@ describe(endpointUrl, () => {
         expect(response.body.done).toStrictEqual(true);
     })
 
+    it('DELETE ' + endpointUrl + '/:id', async () => {
+        const myTodo = await request(app)
+            .post(endpointUrl)
+            .send(newTodo)
+            .expect(201);
+        const response = await request(app)
+            .delete(endpointUrl + '/' + myTodo.body._id)
+            .expect(200);
+        expect(response.body).toStrictEqual(myTodo.body);
+    })
+
+    it('should return 404', async () => {
+        const response = await request(app)
+            .delete(endpointUrl + '/' + '624228deb2d5f911afb7a6e4')
+            .expect(404);
+        expect(response.body.message).toBeDefined();
+    })
+
 });
