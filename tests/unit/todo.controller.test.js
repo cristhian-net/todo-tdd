@@ -5,11 +5,7 @@ const TodoModel = require('../../models/todo.model');
 const newTodo = require('../mock-data/new-todo.json');
 const allTodos = require('../mock-data/all-todos.json');
 
-TodoModel.create = jest.fn();
-TodoModel.find = jest.fn();
-TodoModel.findById = jest.fn();
-TodoModel.findByIdAndUpdate = jest.fn();
-TodoModel.findByIdAndRemove = jest.fn();
+jest.mock('../../models/todo.model');
 
 let req, res, next;
 
